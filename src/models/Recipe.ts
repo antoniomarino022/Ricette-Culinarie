@@ -1,13 +1,11 @@
-export class Recipe{
+export class Recipe {
+  name: string;
+  ingredients: Array<string>;
+  idRecipe: number;
 
-    name:string;
-    ingredients:Array<string>
-    IdRecipe:number;
-
-    constructor(name:string){
-        this.name = name
-        this.ingredients = [];
-        this.IdRecipe = Math.random()
-    }
-
+  constructor(name: string, ingredients: Array<string>) {
+    this.name = name;
+    this.ingredients = ingredients;
+    this.idRecipe = Math.random();
+  }
 }
