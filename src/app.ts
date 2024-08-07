@@ -1,10 +1,11 @@
+import { RecipeController } from "./controllers/RecipeControllers";
 
-import express, {Request,Response} from 'express';
+const recipeController = new RecipeController();
 
+recipeController.createRecipe("torta", ["cacca", "uova"]);
 
-const app = express(); // Crea un'applicazione Express
-const port =  "3000" // variabile di ambiente
-const baseURL ='http://localhost'
-const server = express.json(); // Middleware per parsare i dati JSON
-// const myApp = new Marketplace() // Crea un'istanza della classe Marketplace
-app.use(server);
+console.log(recipeController.getRecipes());
+
+recipeController.removeRecipe(recipeController.getRecipes().at(0)?.idRecipe!);
+
+console.log(recipeController.getRecipes());

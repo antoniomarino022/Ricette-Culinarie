@@ -28,10 +28,14 @@ export class RecipeController {
   }
 
   getRecipes() {
-    return this.recipes
+    return this.recipes;
   }
 
-  getFindRecipe() {}
+  getRecipe(idRecipe:number) {
+    return this.recipes.find((recipe)=>recipe.idRecipe===idRecipe);
+  }
 
-  deleteRecipes() {}
+  deleteRecipes() {
+    this.recipes = [];
+  }
 }
