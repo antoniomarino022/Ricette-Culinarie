@@ -1,7 +1,7 @@
 import { Recipe } from "../models/Recipe";
 
 export class RecipeController {
-  recipes: Recipe[];
+  private recipes: Recipe[];
 
   constructor() {
     this.recipes = [];
@@ -18,11 +18,20 @@ export class RecipeController {
     );
   }
 
-  updateRecipe(idRecipe: number) {}
+  updateRecipe(idRecipe:number,name:string,ingredients:Array<string>) {
+    this.recipes = this.recipes.map((recipe)=>{
+        if(recipe.idRecipe === idRecipe){
+          recipe = {...recipe,name,ingredients};
+        }
+        return recipe
+    })
+  }
 
-  getRecipes() {}
+  getRecipes() {
+    return this.recipes
+  }
 
   getFindRecipe() {}
 
-  deleteRecipes(idRecipe: number) {}
+  deleteRecipes() {}
 }
