@@ -12,13 +12,13 @@ export class RecipeController {
     this.recipes = [...this.recipes, recipe];
   }
 
-  removeRecipe(idRecipe: number) {
+  removeRecipe(idRecipe: string) {
     this.recipes = this.recipes.filter(
       (recipe) => idRecipe !== recipe.idRecipe
     );
   }
 
-  updateRecipe(idRecipe:number,name:string,ingredients:Array<string>) {
+  updateRecipe(idRecipe:string,name:string,ingredients:Array<string>) {
     this.recipes = this.recipes.map((recipe)=>{
         if(recipe.idRecipe === idRecipe){
           recipe = {...recipe,name,ingredients};
@@ -31,7 +31,7 @@ export class RecipeController {
     return this.recipes;
   }
 
-  getRecipe(idRecipe:number) {
+  getRecipe(idRecipe:string) {
     return this.recipes.find((recipe)=>recipe.idRecipe===idRecipe);
   }
 
