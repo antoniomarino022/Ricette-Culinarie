@@ -38,4 +38,5 @@ export class RecipeController {
   deleteRecipes() {
     this.recipes = [];
   }
+  
 }
