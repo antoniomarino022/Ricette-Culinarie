@@ -1,21 +1,14 @@
 import { User } from "../models/User";
+import { AuthController } from "./AuthController";
 
 export class UserController{
    private users:User[];
-
+    private authControllers:AuthController;
     constructor(){
-        this.users = []
+        this.users = [];
+        this.authControllers = new AuthController(this);
     }
 
-    getUserToken(token:string):boolean{
-
-        const auth = this.users.find((user)=>token === user.token);
-
-        if(!auth){
-            console.log('token non valido')
-            return false
-        }else return true
-    }
 
     registerUser(username:string,email:string,password:string,idUser:string){
 
@@ -32,33 +25,27 @@ export class UserController{
      
         
     }
-
-    loginUser(username:string,password:string){
-
-        const user = this.users.find((user)=> username && password === user.username && user.password);
-
-        if(!user){
-            console.log('credenziali errate');
-            return false
-        }else{
-            console.log('login effettuato con successo');
-            return user.token
-        }
-        
+    updateUser(username:string, token:string, idUser:string)
+    {
+            if(this.authControllers.isValidToken(token,idUser))
+            {
+                this.users.map((user)=>
+                {
+                    if(idUser === user.idUser)
+                    {
+                        user = {...user, username}
+                    }
+                    return user;
+                });
+                console.log("Modifica username avvenuta");
+                return true;
+            }
+            console.log("Token non valido");
+            return false;
     }
-
-    logoutUser(token:string,idUser:string){
-
-        const auth = this.getUserToken(token);
-
-        if(!auth){
-            console.log('token non valido');
-            return false
-        }else{
-            this.users = this.users.filter((user)=> idUser !== user.idUser);
-            console.log('logout effettuato con successo');
-            return true
-        }
+    getUsers()
+    {
+        return this.users;
     }
-
+   
 }
