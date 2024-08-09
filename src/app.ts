@@ -1,4 +1,4 @@
-import { RecipeController } from "./controllers/RecipeControllers";
+import { RecipeController } from "./controllers/RecipeController";
 
 const recipeController = new RecipeController();
 
