@@ -5,13 +5,12 @@ export class User{
     username:string;
     email:string;
     password:string;
-    idUser:string;
+    primaryKeyUser:string;
 
     constructor(username:string,email:string,password:string){
         this.username = username;
         this.email = email;
         this.password = password;
-        this.idUser = uuid();
-        this.token = uuid();
+        this.primaryKeyUser = uuid();
     }
 }
