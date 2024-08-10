@@ -1,8 +1,9 @@
-import { v4 as uuid } from "uuid";
+
 import { User } from "./User";
+import jwt from "jsonwebtoken";
 
 export class Auth {
-    idUser: User["idUser"];
+    idUser: User["primaryKeyUser"];
     token: string;
   
     constructor(idUser: string) {
