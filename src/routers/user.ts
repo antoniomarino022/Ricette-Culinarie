@@ -16,3 +16,10 @@ const client = createClient({
 client.connect();
 
 export const routerUser = express.Router();
+
+routerUser.get("", async (req: Request, res: Response) => {
+  const users = await client.query(`SELECT * FROM users`);
+  res.status(200).json(users.rows);
+});
+
+routerUser.post("", (req: Request, res: Response) => {});
