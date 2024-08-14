@@ -22,7 +22,7 @@ export const routerUser = express.Router();
 
 routerUser.get("", async (req: Request, res: Response) => {
   const users = await client.query(`SELECT * FROM users`);
-  res.status(200).json(users.rows);
+  return res.status(200).json(users.rows);
 });
 
 // register user
@@ -51,7 +51,7 @@ routerUser.post("/register", async (req: Request, res: Response) => {
       res.status(400).json({ message: "Registrazione fallita, riprova" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Errore nel server",error });
+    return res.status(500).json({ message: "Errore nel server",error });
   }
 });
 
@@ -84,7 +84,40 @@ routerUser.put("/:id", async (req: Request, res: Response) => {
       return res.status(400).json({ message: "Credenziali non aggiornate!" });
     }
   } catch (error) {
-    res.status(500).json({ message: "Errore interno del server",error });
-    console.error(error);
+    return res.status(500).json({ message: "Errore interno del server",error });
+
+  }
+});
+
+routerUser.delete("/:id", async (req: Request, res: Response) => {
+  const { password } = req.body;
+  if(!password) return res.status(404).json({message: "Missing password"});
+  try {
+    const idUser = req.params.id;
+    const verifyUser = await client.query(
+      `SELECT * FROM users WHERE id = $1`,
+      [idUser]
+    );
+
+    if(verifyUser.rowCount !== 0)
+    {
+      const match = await bcrypt.compare(password, verifyUser.rows[0].password);
+      if(match)
+      {
+        const result = await client.query(
+          `DELETE FROM users WHERE id=$1`,
+          [idUser]
+        );
+        return res.status(200).json({message: "Utente eliminato con successo"});
+      } 
+      else
+      {
+        return res.status(400).json({message: "Password sbagliata"});
+      }
+    }
+    return res.status(404).json({message: "Utente non trovato"}) 
+  }
+  catch(error){
+    return res.status(500).json({ message: "Errore interno del server",error });   
   }
 });

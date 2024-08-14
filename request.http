@@ -17,3 +17,11 @@ Content-Type: application/json
     "username":"antoni777o",
     "password":"12345467"
 }
+
+### delete
+DELETE http://localhost:3000/auth/2
+Content-Type: application/json
+
+{
+    "password":"12345467"
+}
