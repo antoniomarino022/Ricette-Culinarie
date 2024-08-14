@@ -1,0 +1,19 @@
+### register 
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "username":"anto",
+    "email":"anto5@gmail.com",
+    "password":"12345"
+}
+
+
+### update
+PUT http://localhost:3000/auth/1
+Content-Type: application/json
+
+{
+    "username":"antoni777o",
+    "password":"12345467"
+}
