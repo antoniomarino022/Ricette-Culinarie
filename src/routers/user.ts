@@ -26,29 +26,31 @@ routerUser.get("", async (req: Request, res: Response) => {
 
 // register user
 routerUser.post("/register", async (req: Request, res: Response) => {
+  try {
+    const { username, email, password } = req.body;
 
-  const { username,email,password} = req.body
-  const salt = await bcrypt.genSalt();
-  const passwordHash = await bcrypt.hash(password,salt);
-
-  if (!username || !email || !password) {
-    return res.status(400).json({ message: "Username, Email e password sono richiesti" });
-  }
-
-    client.query('INSERT INTO users (username,email,password) VALUES ($1,$2,$3) RETURNING *',
-    [username,email,passwordHash],
-    (error,result)=>{
-      if(error){
-        res.status(400).json({
-          "message":error.message
-        })
-      }else{
-        res.status(200).json({
-          message: "registered with success"
-        })
-      }
+  
+    if (!username || !email || !password) {
+      return res.status(400).json({ message: "Username, Email e password sono richiesti" });
     }
-   )
+
+    
+    const salt = await bcrypt.genSalt();
+    const passwordHash = await bcrypt.hash(password, salt);
+
+    const result = await client.query(
+      'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *',
+      [username, email, passwordHash]
+    );
+
+    if (result.rows.length > 0) {
+      res.status(201).json({ message: "Utente registrato con successo"});
+    } else {
+      res.status(400).json({ message: "Registrazione fallita, riprova" });
+    }
+  } catch (error) {
+    res.status(500).json({ message: "Errore nel server",error });
+  }
 });
 
 
