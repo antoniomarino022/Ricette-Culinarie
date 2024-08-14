@@ -12,11 +12,18 @@ const server = express.json(); // Middleware per parsare i dati JSON
 // const myApp = new Marketplace()
 app.use(server);
 
+
+
+
 const client = createClient({
   connectionString: process.env.DATABASE_URL,
 });
 
 client.connect();
+
+app.use('/auth',routerUser);
+app.use('/recipes',routerRecipe);
+
 
 app.listen(3000, () => {
   console.log("server is running in " + baseURL + port);
