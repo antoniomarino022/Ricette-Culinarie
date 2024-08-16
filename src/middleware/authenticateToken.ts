@@ -52,6 +52,6 @@ export const authenticateToken = (
   });
 };
 
-export const generateAccessToken = (user: Object) => {
+export const generateAccessToken = (user: String) => {
   return jwt.sign(user, process.env.TOKEN_SECRET!, { expiresIn: "1800s" });
 };
