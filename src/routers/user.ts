@@ -15,11 +15,13 @@ client.connect();
 
 export const routerUser = express.Router();
 
+// get all users
 routerUser.get("", async (req: Request, res: Response) => {
   const users = await client.query(`SELECT * FROM users`);
   return res.status(200).json(users.rows);
 });
 
+// update user
 routerUser.put("/:id", async (req: Request, res: Response) => {
   try {
     const idUser = req.params.id;
@@ -54,35 +56,44 @@ routerUser.put("/:id", async (req: Request, res: Response) => {
   }
 });
 
+// delete user
 routerUser.delete("/:id", async (req: Request, res: Response) => {
   const { password } = req.body;
-  if(!password) return res.status(404).json({message: "Missing password"});
+
+  if (!password) return res.status(404).json({ message: "Missing password" });
+
   try {
     const idUser = req.params.id;
+
     const verifyUser = await client.query(
       `SELECT * FROM users WHERE id = $1`,
       [idUser]
     );
 
-    if(verifyUser.rowCount !== 0)
-    {
+    if (verifyUser.rowCount !== 0) {
       const match = await bcrypt.compare(password, verifyUser.rows[0].password);
-      if(match)
-      {
+
+      if (match) {
         const result = await client.query(
           `DELETE FROM users WHERE id=$1`,
           [idUser]
         );
-        return res.status(200).json({message: "Utente eliminato con successo"});
-      } 
-      else
-      {
-        return res.status(400).json({message: "Password sbagliata"});
+
+        // Controllo se l'utente è stato eliminato e se result.rowcount non è null
+        if (result.rowCount && result.rowCount > 0) {
+          return res.status(200).json({ message: "Utente eliminato con successo" });
+        } else {
+          return res.status(400).json({ message: "Eliminazione dell'utente fallita" });
+        }
+      } else {
+        return res.status(400).json({ message: "Password sbagliata" });
       }
+    } else {
+      return res.status(404).json({ message: "Utente non trovato" });
     }
-    return res.status(404).json({message: "Utente non trovato"}) 
-  }
-  catch(error){
-    return res.status(500).json({ message: "Errore interno del server",error });   
+  } catch (error) {
+    return res.status(500).json({ message: "Errore interno del server", error });
   }
 });
+
+
