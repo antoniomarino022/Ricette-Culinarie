@@ -7,6 +7,7 @@ import {
   generateAccessToken,
   authenticateToken,
 } from "../middleware/authenticateToken";
+import { User } from "../models/User";
 
 config();
 
@@ -38,7 +39,8 @@ routerAuth.post("/register", async (req: Request, res: Response) => {
     );
 
     if (result.rowCount! > 0) {
-      res.status(201).json({ message: "Utente registrato con successo" });
+      const user = result.rows[0]
+      res.status(201).json({ message: "Utente registrato con successo",'user':user });
     } else {
       res.status(400).json({ message: "Registrazione fallita, riprova" });
     }
@@ -61,20 +63,26 @@ routerAuth.post("/login", async (req: Request, res: Response) => {
     const result = await client.query("SELECT * FROM users WHERE email=$1", [
       email,
     ]);
-    console.log(result);
-    // Fino a qua la query viene eseguita
-    const match = await bcrypt.compare(password, result.rows[0].password);
-    if (result.rowCount! > 0 && match) {
-      console.log(match); // true
-      // si spacca qua
-      const token = generateAccessToken("user1234");
-      res
+
+    if (result.rowCount === 0) {
+      return res.status(401).json({ message: "Email o password non corretti" });
+    }
+
+    const user = result.rows[0];
+    const match = await bcrypt.compare(password, user.password);
+
+    if (match) {
+      const userId = user.id; 
+      const token = generateAccessToken(userId);
+      console.log(token)
+      return res
         .status(201)
-        .json({ message: "Login effettuato successo", token: token });
+        .json({ message: "Login effettuato con successo", token: token });
     } else {
-      res.status(401).json({ message: "Login fallito" });
+      return res.status(401).json({ message: "Email o password non corretti" });
     }
   } catch (error) {
+    console.error(error);
     return res.status(500).json({ message: "Errore nel server", error });
   }
 });

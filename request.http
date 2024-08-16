@@ -1,3 +1,7 @@
+### get all users
+
+
+
 ### register 
 POST http://localhost:3000/auth/register
 Content-Type: application/json
@@ -34,3 +38,7 @@ Content-Type: application/json
 {
     "password":"12345467"
 }
+
+### delete all table
+DELETE http://localhost:3000/users/delete
+Content-Type: application/json
