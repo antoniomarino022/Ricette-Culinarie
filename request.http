@@ -3,6 +3,12 @@ GET http://localhost:3000/users
 Content-Type: application/json
 
 
+
+### get all auths
+GET http://localhost:3000/auth
+Content-Type: application/json
+
+
 ### register 
 POST http://localhost:3000/auth/register
 Content-Type: application/json
@@ -42,7 +48,7 @@ Content-Type: application/json
 }
 
 ### delete
-DELETE http://localhost:3000/users/10
+DELETE http://localhost:3000/users/18
 Content-Type: application/json
 
 {
@@ -52,7 +58,7 @@ Content-Type: application/json
 ### logout
 DELETE  http://localhost:3000/auth/logout
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImlhdCI6MTcyMzg1NDg2NSwiZXhwIjoxNzIzODU2NjY1fQ.52EkJcQxlcg_nflZEpW6Cw7ZwBKUyIfjKLv-2H16V04
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImlhdCI6MTcyMzg5OTI3NSwiZXhwIjoxNzIzOTAxMDc1fQ.8A158Fxz9f_s5SGxjGNRjncXePD3nxQVz8KTsJM1Ric
 
 
 ### clear table
