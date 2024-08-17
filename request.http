@@ -34,17 +34,18 @@ Content-Type: application/json
 
 {
     "email":"anto5@gmail.com",
-    "password":"123456"
+    "password":"123454678"
 }
 
 
 ### update
-PUT http://localhost:3000/users/9
+PUT http://localhost:3000/users/23
 Content-Type: application/json
 
 {
-    "username":"antoni777o",
-    "password":"12345467"
+    "username":"anto",
+    "oldPassword": "123456",
+    "password":"123454678"
 }
 
 ### delete
