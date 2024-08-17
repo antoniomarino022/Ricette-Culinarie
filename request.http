@@ -9,6 +9,14 @@ GET http://localhost:3000/auth
 Content-Type: application/json
 
 
+
+
+### get user
+GET http://localhost:3000/users/10
+Content-Type: application/json
+
+
+
 ### register 
 POST http://localhost:3000/auth/register
 Content-Type: application/json
@@ -20,13 +28,6 @@ Content-Type: application/json
 }
 
 
-### get user
-
-GET http://localhost:3000/users/10
-Content-Type: application/json
-
-
-
 
 ### login
 POST http://localhost:3000/auth/login
@@ -34,8 +35,20 @@ Content-Type: application/json
 
 {
     "email":"anto5@gmail.com",
-    "password":"123454678"
+    "password":"123456"
 }
+
+
+
+
+### logout
+DELETE  http://localhost:3000/auth/logout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImlhdCI6MTcyMzkxOTk4MywiZXhwIjoxNzIzOTIxNzgzfQ.Z09IVIOsOh2Einn09v9KCKR008fwfNB4zIdI_Exp7cM
+
+
+
+
 
 
 ### update
@@ -48,6 +61,11 @@ Content-Type: application/json
     "password":"123454678"
 }
 
+
+
+
+
+
 ### delete
 DELETE http://localhost:3000/users/18
 Content-Type: application/json
@@ -56,12 +74,48 @@ Content-Type: application/json
     "password":"$2b$10$H/C0v2As.1ZuSOxsvaqane1chUXaJIZxokFBPkfjLNmvdN1CzQbZi"
 }
 
-### logout
-DELETE  http://localhost:3000/auth/logout
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjAsImlhdCI6MTcyMzg5OTI3NSwiZXhwIjoxNzIzOTAxMDc1fQ.8A158Fxz9f_s5SGxjGNRjncXePD3nxQVz8KTsJM1Ric
+
+
 
 
 ### clear table
 DELETE http://localhost:3000/users
 Content-Type: application/json
+
+
+
+### get all recipes
+GET http://localhost:3000/recipes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEsImlhdCI6MTcyMzkyMDE0MiwiZXhwIjoxNzIzOTIxOTQyfQ.kC9xFvYYhpldZUpKdhWJytkFlTf06OGCRSPbYwvJaxg
+
+
+
+
+### add recipes
+POST  http://localhost:3000/recipes/add
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImlhdCI6MTcyMzkxOTk4MywiZXhwIjoxNzIzOTIxNzgzfQ.Z09IVIOsOh2Einn09v9KCKR008fwfNB4zIdI_Exp7cM
+
+{
+    "name":"torta",
+    "ingredients":"uova,farina,latte"
+}
+
+
+
+
+
+### update recipe
+
+PUT http://localhost:3000/recipes/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImlhdCI6MTcyMzkxOTk4MywiZXhwIjoxNzIzOTIxNzgzfQ.Z09IVIOsOh2Einn09v9KCKR008fwfNB4zIdI_Exp7cM
+
+{
+    "name":"torta di pere",
+    "ingredients":"[ uova, latte, farina, pere ]"
+}
+
+
+

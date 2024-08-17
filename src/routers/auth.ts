@@ -82,7 +82,7 @@ routerAuth.post("/login", async (req: Request, res: Response) => {
     if (match) {
       const userId = user.id; 
       const token = generateAccessToken(userId);
-      console.log(token)
+      
       const success = await client.query('INSERT INTO auth (referencekeyuser, token) VALUES ($1,$2) RETURNING *',
         [user.id,token]
       );
