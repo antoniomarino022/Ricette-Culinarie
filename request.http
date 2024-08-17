@@ -9,8 +9,8 @@ Content-Type: application/json
 
 {
     "username":"anto",
-    "email":"anto55@gmail.com",
-    "password":"12345"
+    "email":"anto5@gmail.com",
+    "password":"123456"
 }
 
 
@@ -27,8 +27,8 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email":"anto55@gmail.com",
-    "password":"12345"
+    "email":"anto5@gmail.com",
+    "password":"123456"
 }
 
 
@@ -49,6 +49,12 @@ Content-Type: application/json
     "password":"$2b$10$H/C0v2As.1ZuSOxsvaqane1chUXaJIZxokFBPkfjLNmvdN1CzQbZi"
 }
 
-### delete all table
-DELETE http://localhost:3000/users/delete
+### logout
+DELETE  http://localhost:3000/auth/logout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsImlhdCI6MTcyMzg1NDg2NSwiZXhwIjoxNzIzODU2NjY1fQ.52EkJcQxlcg_nflZEpW6Cw7ZwBKUyIfjKLv-2H16V04
+
+
+### clear table
+DELETE http://localhost:3000/users
 Content-Type: application/json

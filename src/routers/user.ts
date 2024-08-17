@@ -120,3 +120,9 @@ routerUser.delete("/:id", async (req: Request, res: Response) => {
 });
 
 
+// clear table
+
+routerUser.delete("", async (req: Request, res: Response) => {
+  await client.query(`DELETE FROM users`);
+  return res.status(200).json({message:"users svuotato con successo"});
+});
