@@ -86,3 +86,31 @@ routerAuth.post("/login", async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Errore nel server", error });
   }
 });
+
+// logout
+
+routerAuth.delete('/logout', authenticateToken, async (req: Request, res: Response) => {
+  try {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).json({ 'message': 'Token mancante' });
+    }
+
+    const result = await client.query('DELETE FROM users  WHERE token = $1', [token]);
+
+    if (result.rowCount && result.rowCount > 0) {
+      res.status(200).json({ 'message': 'Logout effettuato con successo' });
+    } else {
+      res.status(400).json({ 'message': 'Logout non effettuato, token non trovato' });
+    }
+  } catch (error) {
+    res.status(500).json({ 'message': 'Errore interno del server', error });
+  }
+});
+
+
+
+
+
