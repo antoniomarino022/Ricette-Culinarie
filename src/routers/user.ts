@@ -21,6 +21,30 @@ routerUser.get("", async (req: Request, res: Response) => {
   return res.status(200).json(users.rows);
 });
 
+
+// get user
+routerUser.get("/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const result = await client.query(
+      `SELECT * FROM users WHERE id = $1`,
+      [id]
+    );
+
+    if (result.rowCount !== 0) {
+      res.status(200).json({ 'user': result.rows[0] });
+    } else {
+      
+      res.status(400).json({ 'message': 'Utente non trovato' });
+    }
+
+  } catch (error) {
+    return res.status(500).json({ message: "Errore interno del server", error });
+  }
+});
+
+
 // update user
 routerUser.put("/:id", async (req: Request, res: Response) => {
   try {
@@ -79,7 +103,6 @@ routerUser.delete("/:id", async (req: Request, res: Response) => {
           [idUser]
         );
 
-        // Controllo se l'utente è stato eliminato e se result.rowcount non è null
         if (result.rowCount && result.rowCount > 0) {
           return res.status(200).json({ message: "Utente eliminato con successo" });
         } else {

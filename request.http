@@ -1,5 +1,6 @@
 ### get all users
-
+GET http://localhost:3000/users
+Content-Type: application/json
 
 
 ### register 
@@ -12,6 +13,15 @@ Content-Type: application/json
     "password":"12345"
 }
 
+
+### get user
+
+GET http://localhost:3000/users/10
+Content-Type: application/json
+
+
+
+
 ### login
 POST http://localhost:3000/auth/login
 Content-Type: application/json
@@ -23,7 +33,7 @@ Content-Type: application/json
 
 
 ### update
-PUT http://localhost:3000/users/1
+PUT http://localhost:3000/users/9
 Content-Type: application/json
 
 {
@@ -32,11 +42,11 @@ Content-Type: application/json
 }
 
 ### delete
-DELETE http://localhost:3000/users/2
+DELETE http://localhost:3000/users/10
 Content-Type: application/json
 
 {
-    "password":"12345467"
+    "password":"$2b$10$H/C0v2As.1ZuSOxsvaqane1chUXaJIZxokFBPkfjLNmvdN1CzQbZi"
 }
 
 ### delete all table
