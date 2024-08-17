@@ -87,7 +87,6 @@ routerAuth.post("/login", async (req: Request, res: Response) => {
   }
 });
 
-// logout
 
 routerAuth.delete('/logout', authenticateToken, async (req: Request, res: Response) => {
   try {
@@ -109,8 +108,3 @@ routerAuth.delete('/logout', authenticateToken, async (req: Request, res: Respon
     res.status(500).json({ 'message': 'Errore interno del server', error });
   }
 });
-
-
-
-
-
