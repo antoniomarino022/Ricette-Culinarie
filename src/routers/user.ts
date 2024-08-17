@@ -2,6 +2,7 @@ import { createClient } from "@vercel/postgres";
 import express, { Response, Request, response } from "express";
 import { config } from "dotenv";
 import * as bcrypt from "bcrypt";
+import { authenticateToken } from "../middleware/authenticateToken";
 
 config();
 
@@ -46,15 +47,16 @@ routerUser.get("/:id", async (req: Request, res: Response) => {
 
 
 // update user
-routerUser.put("/:id", async (req: Request, res: Response) => {
+routerUser.put("/:id", authenticateToken, async (req: Request, res: Response) => {
   try {
     const idUser = req.params.id;
     const { username, password } = req.body;
 
     if (!username || !password || !idUser) {
-      return res.status(400).json({ message: "Credenziali non valide!" });
+      return res.status(400).json({ message: "Credenziali mancanti" });
     }
 
+    
     
     const salt = await bcrypt.genSalt();
     const passwordHash = await bcrypt.hash(password, salt);

@@ -19,6 +19,14 @@ client.connect();
 
 export const routerAuth = express.Router();
 
+routerAuth.get("", async (req: Request, res: Response) => {
+  const users = await client.query(`SELECT * FROM auth`);
+  return res.status(200).json(users.rows);
+});
+
+
+
+
 // register user
 routerAuth.post("/register", async (req: Request, res: Response) => {
   try {
@@ -75,12 +83,21 @@ routerAuth.post("/login", async (req: Request, res: Response) => {
       const userId = user.id; 
       const token = generateAccessToken(userId);
       console.log(token)
-      return res
+      const success = await client.query('INSERT INTO auth (referencekeyuser, token) VALUES ($1,$2) RETURNING *',
+        [user.id,token]
+      );
+      if(success.rowCount && success.rowCount > 0){
+        return res
         .status(201)
         .json({ message: "Login effettuato con successo", token: token });
-    } else {
-      return res.status(401).json({ message: "Email o password non corretti" });
+      }
+      return res.status(500).json({message:'errore'})
     }
+       else {
+        return res.status(401).json({ message: "Email o password non corretti" });
+      }
+     
+   
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Errore nel server", error });
@@ -97,7 +114,7 @@ routerAuth.delete('/logout', authenticateToken, async (req: Request, res: Respon
       return res.status(401).json({ 'message': 'Token mancante' });
     }
 
-    const result = await client.query('DELETE FROM users  WHERE token = $1', [token]);
+    const result = await client.query('DELETE FROM auth WHERE token = $1 RETURNING *', [token]);
 
     if (result.rowCount && result.rowCount > 0) {
       res.status(200).json({ 'message': 'Logout effettuato con successo' });
