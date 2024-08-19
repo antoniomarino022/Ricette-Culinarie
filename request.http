@@ -87,7 +87,7 @@ Content-Type: application/json
 ### get all recipes
 GET http://localhost:3000/recipes
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEsImlhdCI6MTcyMzkyMDE0MiwiZXhwIjoxNzIzOTIxOTQyfQ.kC9xFvYYhpldZUpKdhWJytkFlTf06OGCRSPbYwvJaxg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEsImlhdCI6MTcyNDA3MjY4MiwiZXhwIjoxNzI0MDc0NDgyfQ.FCR1Pr8KDAz_lnRacd_4EemfH5OPuUgSlfhowz_rgIA
 
 
 
@@ -95,7 +95,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEsImlhdCI6M
 ### add recipes
 POST  http://localhost:3000/recipes/add
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImlhdCI6MTcyMzkxOTk4MywiZXhwIjoxNzIzOTIxNzgzfQ.Z09IVIOsOh2Einn09v9KCKR008fwfNB4zIdI_Exp7cM
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEsImlhdCI6MTcyNDA3MjY4MiwiZXhwIjoxNzI0MDc0NDgyfQ.FCR1Pr8KDAz_lnRacd_4EemfH5OPuUgSlfhowz_rgIA
 
 {
     "name":"torta",
@@ -119,3 +119,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzAsImlhdCI6M
 
 
 
+### delete recipe
+
+DELETE http://localhost:3000/recipes/5
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzEsImlhdCI6MTcyNDA3MjY4MiwiZXhwIjoxNzI0MDc0NDgyfQ.FCR1Pr8KDAz_lnRacd_4EemfH5OPuUgSlfhowz_rgIA
